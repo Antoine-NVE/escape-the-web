@@ -1,45 +1,64 @@
-import { useState } from 'react';
-import { validateCombinationPuzzle2 } from './ValidateCombination';
+import { useEffect, useState } from 'react';
+import { SECRET_COMBINATION_PUZZLE_2, isLetterInWord, revealLetters } from './ValidateCombination';
 
 const Puzzle2 = ({ onSuccess }: { onSuccess: () => void }) => {
-    const [input, setInput] = useState('');
+    const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
     const [message, setMessage] = useState('');
+    const [isLocked, setIsLocked] = useState(false);
     const [solved, setSolved] = useState(false);
 
-    const handleSubmit = () => {
-        if (validateCombinationPuzzle2(input)) {
-            setMessage('✅ Bonne réponse !');
+    const revealed = revealLetters(SECRET_COMBINATION_PUZZLE_2, guessedLetters);
+    const wordCompleted = !revealed.includes('_');
+
+    useEffect(() => {
+        if (wordCompleted && !solved) {
+            setMessage('✅ Bien joué ! Le mot est complet.');
             setSolved(true);
             setTimeout(onSuccess, 1000);
+        }
+    }, [wordCompleted, solved, onSuccess]);
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+        const letter = e.key.toLowerCase();
+        if (solved || isLocked || !/^[a-z]$/.test(letter)) return;
+
+        if (guessedLetters.includes(letter)) return;
+
+        if (isLetterInWord(letter)) {
+            setGuessedLetters((prev) => [...prev, letter]);
+            setMessage('');
         } else {
-            setMessage('❌ Ce n’est pas le bon mot…');
-            setInput('');
+            setMessage(`❌ La lettre "${letter}" ne fait pas partie du mot.`);
+            setIsLocked(true);
+            setTimeout(() => {
+                setIsLocked(false);
+                setMessage('');
+            }, 5000);
         }
     };
 
+    useEffect(() => {
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [guessedLetters, isLocked, solved]);
+
     return (
         <div className="space-y-6 text-center">
-            <h2 className="text-2xl font-bold text-gray-800">🧠 Le Mot Caché</h2>
+            <h2 className="text-2xl font-bold text-gray-800">🔤 Mot à retrouver</h2>
             <p className="text-gray-600 italic">Je suis toujours là, mais tu ne me vois jamais. Qui suis-je ?</p>
+            <p className="text-gray-600 italic">
+                Tape une lettre au clavier. Une mauvaise lettre = 5 secondes de pénalité.
+            </p>
 
-            <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                disabled={solved}
-                className="px-4 py-2 text-center text-xl border rounded-xl w-60 shadow-sm focus:outline-none focus:ring-2 focus:ring-rose-300"
-                placeholder="Entrez votre réponse"
-            />
-
-            <div>
-                <button
-                    onClick={handleSubmit}
-                    disabled={solved}
-                    className="mt-2 px-6 py-2 bg-rose-400 text-white font-semibold rounded-xl hover:bg-rose-500 transition cursor-pointer"
-                >
-                    Valider
-                </button>
+            <div className="flex justify-center gap-3 text-3xl font-mono text-gray-800">
+                {revealed.map((char, index) => (
+                    <span key={index} className="w-10 border-b-2 border-gray-400">
+                        {char !== '_' ? char : ''}
+                    </span>
+                ))}
             </div>
+
+            {isLocked && <p className="text-sm text-red-600">⏳ Attends 5 secondes avant de réessayer.</p>}
 
             {message && <p className="text-sm mt-4">{message}</p>}
         </div>
