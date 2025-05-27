@@ -1,20 +1,47 @@
+import { useState } from 'react';
+import { validateCombinationPuzzle2 } from './ValidateCombination';
+
 const Puzzle2 = ({ onSuccess }: { onSuccess: () => void }) => {
+    const [input, setInput] = useState('');
+    const [message, setMessage] = useState('');
+    const [solved, setSolved] = useState(false);
+
+    const handleSubmit = () => {
+        if (validateCombinationPuzzle2(input)) {
+            setMessage('✅ Bonne réponse !');
+            setSolved(true);
+            setTimeout(onSuccess, 1000);
+        } else {
+            setMessage('❌ Ce n’est pas le bon mot…');
+            setInput('');
+        }
+    };
+
     return (
-        <div>
-            <h1>Puzzle 2</h1>
-            <p>This is the second puzzle.</p>
-            <p>To solve this puzzle, you need to find the product of all even numbers from 1 to 20.</p>
-            <p>Hint: Use a loop to iterate through the numbers and multiply the even ones.</p>
-            <p>Once you have the answer, click the button below to proceed to the next puzzle.</p>
-            <button
-                onClick={() => {
-                    // Here you would typically check the answer before calling onSuccess
-                    onSuccess();
-                }}
-                className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
-            >
-                Next Puzzle
-            </button>
+        <div className="space-y-6 text-center">
+            <h2 className="text-2xl font-bold text-gray-800">🧠 Le Mot Caché</h2>
+            <p className="text-gray-600 italic">Je suis toujours là, mais tu ne me vois jamais. Qui suis-je ?</p>
+
+            <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                disabled={solved}
+                className="px-4 py-2 text-center text-xl border rounded-xl w-60 shadow-sm focus:outline-none focus:ring-2 focus:ring-rose-300"
+                placeholder="Entrez votre réponse"
+            />
+
+            <div>
+                <button
+                    onClick={handleSubmit}
+                    disabled={solved}
+                    className="mt-2 px-6 py-2 bg-rose-400 text-white font-semibold rounded-xl hover:bg-rose-500 transition cursor-pointer"
+                >
+                    Valider
+                </button>
+            </div>
+
+            {message && <p className="text-sm mt-4">{message}</p>}
         </div>
     );
 };
