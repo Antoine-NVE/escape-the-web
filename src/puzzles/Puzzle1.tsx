@@ -18,7 +18,14 @@ const Puzzle1 = ({ onSuccess }: { onSuccess: () => void }) => {
     return (
         <div className="space-y-6 text-center">
             <h2 className="text-2xl font-bold text-gray-800">🔐 Le Coffre-Fort</h2>
-            <p className="text-gray-600">Entre une combinaison à 4 chiffres pour déverrouiller le coffre.</p>
+            <p className="text-gray-600">Devine le code à 4 chiffres grâce aux indices :</p>
+
+            <ul className="text-left inline-block text-sm text-gray-700 space-y-1">
+                <li>🔎 Le deuxième chiffre est le double du premier.</li>
+                <li>🔎 Le total des chiffres est égal à 18.</li>
+                <li>🔎 Le dernier chiffre est impair.</li>
+                <li>🔎 Aucun chiffre n’est répété.</li>
+            </ul>
 
             <input
                 type="text"
