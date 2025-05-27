@@ -1,54 +1,72 @@
-# React + TypeScript + Vite
+# Escape the Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Projet de mini-jeu en React avec 3 puzzles interactifs, développé par **Antoine Navette**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Lancer le projet
 
-## Expanding the ESLint configuration
+Assurez-vous d'avoir Node.js installé.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. Installer les dépendances :
 
-```js
-export default tseslint.config({
-    extends: [
-        // Remove ...tseslint.configs.recommended and replace with this
-        ...tseslint.configs.recommendedTypeChecked,
-        // Alternatively, use this for stricter rules
-        ...tseslint.configs.strictTypeChecked,
-        // Optionally, add this for stylistic rules
-        ...tseslint.configs.stylisticTypeChecked,
-    ],
-    languageOptions: {
-        // other options...
-        parserOptions: {
-            project: ['./tsconfig.node.json', './tsconfig.app.json'],
-            tsconfigRootDir: import.meta.dirname,
-        },
-    },
-});
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Lancer le serveur en développement :
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
-
-export default tseslint.config({
-    plugins: {
-        // Add the react-x and react-dom plugins
-        'react-x': reactX,
-        'react-dom': reactDom,
-    },
-    rules: {
-        // other rules...
-        // Enable its recommended typescript rules
-        ...reactX.configs['recommended-typescript'].rules,
-        ...reactDom.configs.recommended.rules,
-    },
-});
+```bash
+npm run dev
 ```
+
+3. Accéder au jeu dans votre navigateur :
+
+```
+http://localhost:5173
+```
+
+---
+
+## 📆 Scripts disponibles
+
+```json
+"scripts": {
+  "dev": "vite",
+  "build": "tsc -b && vite build",
+  "lint": "eslint .",
+  "preview": "vite preview",
+  "test": "vitest",
+  "format": "prettier --write .",
+  "e2e": "node tests/playwright/e2e.js"
+}
+```
+
+| Commande          | Description                              |
+| ----------------- | ---------------------------------------- |
+| `npm run dev`     | Lance le serveur Vite                    |
+| `npm run build`   | Compile le projet pour la production     |
+| `npm run lint`    | Analyse le code avec ESLint              |
+| `npm run preview` | Lance un serveur de prévisualisation     |
+| `npm run test`    | Lance les tests unitaires avec Vitest    |
+| `npm run format`  | Formate le code avec Prettier            |
+| `npm run e2e`     | Lance le script `e2e.js` avec Playwright |
+
+---
+
+## 🧠 Solutions des puzzles
+
+### 🔐 Puzzle 1 : Le coffre à molettes
+
+> Code à entrer via les molettes :
+> **`3 6 2 7`**
+
+### 🌤️ Puzzle 2 : Le mot à reconstituer
+
+> Mot à deviner lettre par lettre :
+> **`ombre`**
+
+### 🎨 Puzzle 3 : La séquence de couleurs
+
+> Ordre à cliquer après affichage de la séquence :
+> **`rouge → bleu → vert`**
