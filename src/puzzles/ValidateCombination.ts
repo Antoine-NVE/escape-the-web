@@ -1,6 +1,6 @@
 export const SECRET_COMBINATION_PUZZLE_1 = '2468';
 export const SECRET_COMBINATION_PUZZLE_2 = 'ombre';
-export const SECRET_COMBINATION_PUZZLE_3 = ['rose', 'bleu', 'vert', 'jaune'];
+export const SECRET_COMBINATION_PUZZLE_3 = ['green', 'blue', 'red', 'yellow'];
 
 export function validateCombinationPuzzle1(input: string): boolean {
     return input === SECRET_COMBINATION_PUZZLE_1;
