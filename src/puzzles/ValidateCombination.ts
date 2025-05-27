@@ -6,10 +6,14 @@ export function validateCombinationPuzzle1(input: string): boolean {
     return input === SECRET_COMBINATION_PUZZLE_1;
 }
 
-export function validateCombinationPuzzle2(input: string): boolean {
-    return input.trim().toLowerCase() === SECRET_COMBINATION_PUZZLE_2;
-}
-
 export function validateCombinationPuzzle3(input: string[]): boolean {
     return JSON.stringify(input) === JSON.stringify(SECRET_COMBINATION_PUZZLE_3);
+}
+
+export function isLetterInWord(letter: string): boolean {
+    return SECRET_COMBINATION_PUZZLE_2.includes(letter.toLowerCase());
+}
+
+export function revealLetters(word: string, guessedLetters: string[]): string[] {
+    return word.split('').map((char) => (guessedLetters.includes(char.toLowerCase()) ? char : '_'));
 }
