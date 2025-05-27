@@ -59,7 +59,7 @@ http://localhost:5173
 ### 🔐 Puzzle 1 : Le coffre à molettes
 
 > Code à entrer via les molettes :
-> **`3 6 2 7`**
+> **`3 6 2 7`** (il faut mettre le son)
 
 ### 🌤️ Puzzle 2 : Le mot à reconstituer
 
