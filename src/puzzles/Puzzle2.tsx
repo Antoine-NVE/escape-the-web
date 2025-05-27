@@ -18,26 +18,26 @@ const Puzzle2 = ({ onSuccess }: { onSuccess: () => void }) => {
         }
     }, [wordCompleted, solved, onSuccess]);
 
-    const handleKeyDown = (e: KeyboardEvent) => {
-        const letter = e.key.toLowerCase();
-        if (solved || isLocked || !/^[a-z]$/.test(letter)) return;
-
-        if (guessedLetters.includes(letter)) return;
-
-        if (isLetterInWord(letter)) {
-            setGuessedLetters((prev) => [...prev, letter]);
-            setMessage('');
-        } else {
-            setMessage(`❌ La lettre "${letter}" ne fait pas partie du mot.`);
-            setIsLocked(true);
-            setTimeout(() => {
-                setIsLocked(false);
-                setMessage('');
-            }, 5000);
-        }
-    };
-
     useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            const letter = e.key.toLowerCase();
+            if (solved || isLocked || !/^[a-z]$/.test(letter)) return;
+
+            if (guessedLetters.includes(letter)) return;
+
+            if (isLetterInWord(letter)) {
+                setGuessedLetters((prev) => [...prev, letter]);
+                setMessage('');
+            } else {
+                setMessage(`❌ La lettre "${letter}" ne fait pas partie du mot.`);
+                setIsLocked(true);
+                setTimeout(() => {
+                    setIsLocked(false);
+                    setMessage('');
+                }, 5000);
+            }
+        };
+
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [guessedLetters, isLocked, solved]);

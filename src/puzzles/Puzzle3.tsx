@@ -47,7 +47,7 @@ const Puzzle3 = ({ onSuccess }: { onSuccess: () => void }) => {
         <div className="space-y-6 text-center">
             <h2 className="text-2xl font-bold text-gray-800">🧠 Séquence à mémoriser</h2>
             <p className="text-gray-600">
-                Clique sur "Voir la séquence" pour la mémoriser. Tu ne peux la voir <strong>qu’une seule fois</strong> !
+                Clique sur "Voir la séquence" pour la mémoriser. Tu ne peux la voir <strong>qu’une seule fois</strong> !
             </p>
 
             <button
